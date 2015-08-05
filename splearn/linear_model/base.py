@@ -165,3 +165,19 @@ class SparkLinearRegression(LinearRegression, SparkLinearModelMixin):
         """
         check_rdd(X, (sp.spmatrix, np.ndarray))
         return self._spark_predict(SparkLinearRegression, X)
+
+class SparkLinearClassifierMixin(LinearClassifierMixin, SparkBroadcasterMixin):
+     """Mixin for linear classifiers.
+
+         Handles prediction for sparse and dense X.
+     """
+
+     __transient__ = ['coef_', 'intercept_']
+
+
+     def decision_funciton(self, X):
+         check_rdd(X, (sp.spmatrix, np.ndarray))
+
+         mapper = self.broadcast(
+                 super(LinearClassifierMixin,self).decision_funciton, X.context)
+         return X.map(mapper)
