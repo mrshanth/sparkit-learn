@@ -3,7 +3,7 @@
 import numpy as np
 import scipy.sparse as sp
 from sklearn.base import copy
-from sklearn.linear_model.base import LinearRegression
+from sklearn.linear_model.base import LinearRegression, LinearClassifierMixin
 
 from ..utils.validation import check_rdd
 
