@@ -133,3 +133,19 @@ class SparkLinearSVC(LinearSVC, SparkLinearModelMixin):
         """
         check_rdd(X, (sp.spmatrix, np.ndarray))
         return self._spark_predict(SparkLinearSVC, X)
+    
+    def decision_function(self, X):
+        """Distributed method to compute confidence score for samples in X.
+
+        Parameters
+        ----------
+        X : ArrayRDD containing {array-like, sparse matrix}
+            Samples.
+
+        Returns
+        -------
+        C : ArrayRDD
+            Confidence score per sample.
+        """
+	check_rdd(X, (sp.spmatrix, np.ndarray))
+	return self.decision_funciton(SparkLinearSVC, X)
